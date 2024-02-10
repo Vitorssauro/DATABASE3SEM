@@ -10,16 +10,10 @@ public class JanelaPrincipal extends JFrame {
     public JanelaPrincipal() {
         jTPane = new JTabbedPane();
         add(jTPane);
-        // criandos as tabs
-        // tab1 carros
-        CarrosPainel tab1 = new CarrosPainel();
-        jTPane.add("Carros", tab1);
-        // tab2 clientes
-        ToDoPainel tab2 = new ToDoPainel();
-        jTPane.add("Clientes", tab2);
-        // tab3 vendas
-        VendasPainel tab3 = new VendasPainel();
-        jTPane.add("Vendas", tab3);
+        // criandos as tab
+        // tab clientes
+        ToDoPainel tab = new ToDoPainel();
+        jTPane.add("Clientes", tab);
         setBounds(100, 100, 600, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }

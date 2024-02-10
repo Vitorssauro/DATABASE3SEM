@@ -6,18 +6,18 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import Connection.ToDoDAO;
-import Model.ToDo;
+import Model.TodoList;
 
 public class ToDoControl {
 
     // atributos
-    private List<ToDo> todoList;
+    private List<TodoList> todolist;
     private DefaultTableModel tableModel;
     private JTable table;
 
     // construtor
-    public ToDoControl(List<ToDo> todoList, DefaultTableModel tableModel, JTable table) {
-        this.todoList = todoList;
+    public ToDoControl(List<TodoList> todolist, DefaultTableModel tableModel, JTable table) {
+        this.todolist = todolist;
         this.tableModel = tableModel;
         this.table = table;
     }
@@ -26,11 +26,11 @@ public class ToDoControl {
     // Método para atualizar a tabela de exibição com dados do banco de dados
     private void atualizarTabela() {
         tableModel.setRowCount(0); // Limpa todas as linhas existentes na tabela
-        todoList = new ToDoDAO().listarTodos();
+        todolist = new ToDoDAO().listarTodos();
         // Obtém os clientes atualizados do banco de dados
-        for (ToDo todo : todoList) {
+        for (TodoList todo : todolist) {
             // Adiciona os dados de cada cliente como uma nova linha na tabela Swing
-            tableModel.addRow(new Object[] { todo.getId(), todo.getTarefa(),
+            tableModel.addRow(new Object[] {todo.getTarefa(),
                     todo.getStatus()});
         }
     }
@@ -43,16 +43,26 @@ public class ToDoControl {
     }
 
     // Método para atualizar os dados de um cliente no banco de dados
-    public void atualizar(int id, String tarefa, String status) {
-        new ToDoDAO().atualizar(id, status, tarefa, status)
+    public void atualizar(int i, String tarefa, String status) {
+        new ToDoDAO().atualizar(i, tarefa, status);
         // Chama o método de atualização no banco de dados
         atualizarTabela(); // Atualiza a tabela de exibição após a atualização
     }
 
     // Método para apagar um cliente do banco de dados
-    public void apagar(String cpf) {
-        new ToDoDAO().apagar(cpf);
+    public void apagar(int id) {
+        new ToDoDAO().apagar(id);
         // Chama o método de exclusão no banco de dados
         atualizarTabela(); // Atualiza a tabela de exibição após a exclusão
+    }
+
+    public void criar(int height, String text, String text2) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'criar'");
+    }
+
+    public void criar(String text, String text2) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'criar'");
     }
 }

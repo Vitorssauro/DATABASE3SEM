@@ -25,7 +25,7 @@ public class ToDoPainel extends JPanel {
     // Atributos(componentes)
     private JButton criar, apagar, editar;
     private JTextField idField, tarefaField, statusField;
-    private List<TodoList> todo;
+    private List<TodoList> todolist;
     private JTable table;
     private DefaultTableModel tableModel;
     private int linhaSelecionada = -1;
@@ -38,13 +38,10 @@ public class ToDoPainel extends JPanel {
         add(new JLabel("To Do List"));
         JPanel inputPanel = new JPanel();
         inputPanel.setLayout(new GridLayout(5, 2));
-        inputPanel.add(new JLabel("ID"));
-        idField = new JTextField(20);
-        inputPanel.add(idField);
-        inputPanel.add(new JLabel("Endereço"));
+        inputPanel.add(new JLabel("Tarefa"));
         tarefaField = new JTextField(20);
         inputPanel.add(tarefaField);
-        inputPanel.add(new JLabel("Fone"));
+        inputPanel.add(new JLabel("Status"));
         statusField = new JTextField(20);
         inputPanel.add(statusField);
         add(inputPanel);
@@ -57,7 +54,7 @@ public class ToDoPainel extends JPanel {
         JScrollPane jSPane = new JScrollPane();
         add(jSPane);
         tableModel = new DefaultTableModel(new Object[][] {},
-                new String[] { "Nome", "Endereço", "Fone", "CPF"});
+                new String[] { "Nome", "Tarefa", "Status"});
         table = new JTable(tableModel);
         jSPane.setViewportView(table);
 
@@ -80,11 +77,11 @@ public class ToDoPainel extends JPanel {
             }
         });
 
-        ToDoControl operacoes = new ToDoControl(clientes, tableModel, table);
+        ToDoControl operacoes = new ToDoControl(todolist, tableModel, table);
 
         //tratamento para botão criar
         criar.addActionListener(e->{
-            operacoes.criar(idField.getText(), tarefaField.getText(),
+            operacoes.criar(tarefaField.getText(),
                                 statusField.getText());
             idField.setText("");
             tarefaField.setText("");
@@ -93,7 +90,7 @@ public class ToDoPainel extends JPanel {
 
         //tratamento do botão editar
         editar.addActionListener(e->{
-            operacoes.atualizar(idField.getText(), tarefaField.getText(),
+            operacoes.atualizar(idField.getHeight(), tarefaField.getText(),
                                 statusField.getText());
             idField.setText("");
             tarefaField.setText("");
@@ -102,7 +99,7 @@ public class ToDoPainel extends JPanel {
 
         //tratamento do botão apagar
         apagar.addActionListener(e->{
-            operacoes.apagar(idField.getText());
+            operacoes.apagar(idField.getHeight());
             idField.setText("");
             tarefaField.setText("");
             statusField.setText("");
@@ -115,11 +112,11 @@ public class ToDoPainel extends JPanel {
     // Método para atualizar a tabela de exibição com dados do banco de dados
     private void atualizarTabela() {
         tableModel.setRowCount(0); // Limpa todas as linhas existentes na tabela
-        clientes = new ToDoDAO().listarTodos();
+        todolist = new ToDoDAO().listarTodos();
         // Obtém os clientes atualizados do banco de dados
-        for (TodoList cliente : clientes) {
-            // Adiciona os dados de cada cliente como uma nova linha na tabela Swing
-            tableModel.addRow(new Object[] { cliente.getNome(), cliente.getEndereco(), cliente.getFone(), cliente.getCpf() });
+        for (TodoList todolist : todolist) {
+            // Adiciona os dados de cada todoList como uma nova linha na tabela Swing
+            tableModel.addRow(new Object[] {todolist.getTarefa(), todolist.getStatus()});
         }
     }
 }

@@ -11,10 +11,10 @@ import java.util.List;
 import Model.TodoList;
 
 public class ToDoDAO {
-    
+
     // atributo
     private Connection connection;
-    private List<TodoList> todoList;
+    private List<TodoList> todolist;
 
     // construtor
     public ToDoDAO() {
@@ -23,7 +23,7 @@ public class ToDoDAO {
 
     // criar Tabela
     public void criaTabela() {
-        String sql = "CREATE TABLE IF NOT EXISTS todo_list (ID INT AUTO-INCREMENT, TAREFA VARCHAR(255), STATUS VARCHAR(255))";
+        String sql = "CREATE TABLE IF NOT EXISTS todo_list (ID SERIAL PRIMARY KEY, TAREFA VARCHAR(255), STATUS VARCHAR(255))";
         try (Statement stmt = this.connection.createStatement()) {
             stmt.execute(sql);
             System.out.println("Tabela criada com sucesso.");
@@ -40,7 +40,7 @@ public class ToDoDAO {
         // Declaração do objeto PreparedStatement para executar a consulta
         ResultSet rs = null;
         // Declaração do objeto ResultSet para armazenar os resultados da consulta
-        todoList = new ArrayList<>();
+        todolist = new ArrayList<>();
         // Cria uma lista para armazenar os carros recuperados do banco de dados
         try {
             String sql = "SELECT * FROM todo_list";
@@ -49,13 +49,14 @@ public class ToDoDAO {
             rs = stmt.executeQuery();
             // Executa a consulta e armazena os resultados no ResultSet
             while (rs.next()) {
-                // Para cada registro no ResultSet, cria um objeto todo com os valores do registro
+                // Para cada registro no ResultSet, cria um objeto todo com os valores do
+                // registro
 
-                TodoList TodoList = new TodoList(
-                        rs.getInt("id"),                        
+                TodoList todo = new TodoList(
+                        rs.getInt("id"),
                         rs.getString("tarefa"),
                         rs.getString("status"), sql);
-                TodoList.add(todoList); // Adiciona o objeto todo à lista de todo
+                todolist.add(todo); // Adiciona o objeto todo à lista de todo
             }
         } catch (SQLException ex) {
             System.out.println(ex); // Em caso de erro durante a consulta, imprime o erro
@@ -64,11 +65,11 @@ public class ToDoDAO {
 
             // Fecha a conexão, o PreparedStatement e o ResultSet
         }
-        return todoList; // Retorna a lista de todo recuperados do banco de dados
+        return todolist; // Retorna a lista de todo recuperados do banco de dados
     }
 
     // Cadastrar Carro no banco
-    public void cadastrar(int id, String endereco, String fone, String cpf) {
+    public void cadastrar(int id, String tarefa, String status) {
         PreparedStatement stmt = null;
         // Define a instrução SQL parametrizada para cadastrar na tabela
         String sql = "INSERT INTO todo_list (id, tarefa, status) VALUES (?, ?, ?)";
@@ -76,8 +77,8 @@ public class ToDoDAO {
             stmt = connection.prepareStatement(sql);
 
             stmt.setInt(1, id);
-            stmt.setString(2, endereco);
-            stmt.setString(3, fone);
+            stmt.setString(2, tarefa);
+            stmt.setString(3, status);
             stmt.executeUpdate();
             System.out.println("Dados inseridos com sucesso");
         } catch (
@@ -90,17 +91,17 @@ public class ToDoDAO {
     }
 
     // Atualizar dados no banco
-    public void atualizar(int id, String endereco, String fone, String cpf) {
+    public void atualizar(int id, String tarefa, String status) {
         PreparedStatement stmt = null;
         // Define a instrução SQL parametrizada para atualizar dados pelo cpf
-        String sql = "UPDATE todo_list SET id = ?, endereco = ?, fone = ?, WHERE cpf = ?";
+        String sql = "UPDATE todo_list SET WHERE id = ?, tarefa = ?, status = ?";
         try {
             stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, id);            
-            stmt.setString(2, endereco);
-            stmt.setString(3, fone);
+            stmt.setInt(1, id);
+            stmt.setString(2, tarefa);
+            stmt.setString(3, status);
             // cpf é a chave primaria não pode ser alterada.
-            stmt.setString(4, cpf);
+            stmt.setInt(4, id);
             stmt.executeUpdate();
             System.out.println("Dados atualizados com sucesso");
         } catch (SQLException e) {
@@ -111,13 +112,13 @@ public class ToDoDAO {
     }
 
     // Apagar dados do banco
-    public void apagar(String cpf) {
+    public void apagar(int cpf) {
         PreparedStatement stmt = null;
         // Define a instrução SQL parametrizada para apagar dados pelo cpf
         String sql = "DELETE FROM todo_list WHERE cpf = ?";
         try {
             stmt = connection.prepareStatement(sql);
-            stmt.setString(1, cpf);
+            stmt.setInt(1, cpf);
             stmt.executeUpdate(); // Executa a instrução SQL
             System.out.println("Dado apagado com sucesso");
         } catch (SQLException e) {
