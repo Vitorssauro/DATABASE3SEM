@@ -18,14 +18,22 @@
     <br><br>
 
     <form method="post">
-        Nomo : <input type="text" name="nome" id="nome">
+        Nome : <input type="text" name="nome" id="nome">
         E-mail : <input type="text" name="email" id="email">
         Fone : <input type="text" name="fone" id="fone">
         <button type="submit">Enviar</button>
     </form>
 
-    <span th:if="${buscar}  ">
-        O valor da busca é: <span th:text=" ${buscar}"></span>
+    <span th:if="${buscar1}  ">
+        Seu nome é: <span th:text=" ${buscar1}"></span>
+    </span> 
+    <br>
+    <span th:if="${buscar2}  ">
+        Seu e-mail é: <span th:text=" ${buscar2}"></span>
+    </span>
+    <br>
+    <span th:if="${buscar3}  ">
+        Seu número de telefone é: <span th:text=" ${buscar3}"></span>
     </span>
 
 </body>
