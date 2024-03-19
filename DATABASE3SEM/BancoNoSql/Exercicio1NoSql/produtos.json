@@ -1,0 +1,76 @@
+{
+  "produtos": [
+    {
+      "id": "1",
+      "nome": "Marmitex",
+      "descricao": "arroz, feijão e minstura",
+      "preco": "21",
+      "categoria": "alimento",
+      "marca": "Dona Ana",
+      "avaliacao": [
+        {
+          "id": "1",
+          "nota": "5"
+        },
+        {
+          "id": "2",
+          "nota": "3"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "nome": "pilha",
+      "descricao": "pilha descartavel",
+      "preco": "6",
+      "categoria": "eletronico",
+      "marca": "felipes",
+      "avaliacao": [
+        {
+          "id": "1",
+          "nota": "3"
+        },
+        {
+          "id": "2",
+          "nota": "5"
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "nome": "Cadeira de Escritório",
+      "descricao": "Cadeira ergonômica para escritório",
+      "preco": "299",
+      "categoria": "móveis",
+      "marca": "ErgoLife",
+      "avaliacao": [
+        {
+          "id": "1",
+          "nota": "4"
+        },
+        {
+          "id": "2",
+          "nota": "4"
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "nome": "Laptop",
+      "descricao": "Laptop com processador de última geração",
+      "preco": "1500",
+      "categoria": "eletrônicos",
+      "marca": "TechMaster",
+      "avaliacao": [
+        {
+          "id": "1",
+          "nota": "4"
+        },
+        {
+          "id": "2",
+          "nota": "5"
+        }
+      ]
+    }
+  ]
+}
