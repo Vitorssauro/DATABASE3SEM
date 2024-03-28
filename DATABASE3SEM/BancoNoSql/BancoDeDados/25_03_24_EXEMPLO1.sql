@@ -1,0 +1,96 @@
+create DATABASE aulaSQL;
+
+DROP DATABASE aulaSQL;
+
+CREATE DATABASE DB_AULA25MAR24;
+ 
+
+--CRIA TABELA SE ELA NÃO EXISTE
+--E SE EXISTE ELA NÃO RETORNA ERRO 
+CREATE TABLE IF NOT EXISTS Fornecedor (
+    Fcodigo INT NOT NULL,
+    Fnome VARCHAR(30) NOT NULL,
+    Status INT,
+    Cidade VARCHAR(30)
+);
+
+-- SELECIONAR
+SELECT * FROM Fornecedor;
+
+
+CREATE TABLE Departamento(
+    Dcodigo INT NOT NULL,
+    Dnome VARCHAR(30) NOT NULL,
+    Cidade VARCHAR(30),
+    PRIMARY KEY (Dcodigo)
+);
+
+--senai projeto, Agora
+create DATABASE aulaSQL;
+
+DROP DATABASE aulaSQL;
+
+CREATE DATABASE DB_AULA25MAR24;
+ 
+
+--CRIA TABELA SE ELA NÃO EXISTE
+--E SE EXISTE ELA NÃO RETORNA ERRO 
+CREATE TABLE IF NOT EXISTS Fornecedor (
+    Fcodigo INT NOT NULL,
+    Fnome VARCHAR(30) NOT NULL,
+    Status INT,
+    Cidade VARCHAR(30)
+);
+
+-- SELECIONAR
+SELECT * FROM Fornecedor;
+
+
+CREATE TABLE Departamento(
+    Dcodigo INT NOT NULL,
+    Dnome VARCHAR(30) NOT NULL,
+    Cidade VARCHAR(30),
+    PRIMARY KEY (Dcodigo)
+);
+
+CREATE TABLE Empregado (
+    Ecodigo INT NOT NULL,
+    Enome VARCHAR(40) NOT NULL,
+    CPF VARCHAR(15) NOT NULL,
+    Salario DECIMAL(7,2),
+    Dcodigo INT NOT NULL,
+    PRIMARY KEY(Ecodigo,Enome)
+)
+
+-- APAGAR A TABELA EMPREGADO
+DROP TABLE  Empregado;
+
+-- CRIAÇÃO DE TABELA COM FOREING KEY
+
+CREATE TABLE IF NOT EXISTS Empregado (
+    Ecodigo INT NOT NULL,
+    Enome VARCHAR(40) NOT NULL,
+    CPF VARCHAR(15) NOT NULL,
+    Salario DECIMAL(7,2),
+    Dcodigo INT NOT NULL,
+    PRIMARY KEY(Ecodigo,Enome),
+    FOREIGN KEY(Dcodigo) REFERENCES Departamento
+)
+
+--ADD COLUNA
+ALTER TABLE Empregado ADD sexo CHAR(1);
+
+--ALTERAR TABELAS COM O ALTER TABLE
+ALTER TABLE Emprego ADD SEXO CHAR(1);
+
+--DROP COLUNA
+ALTER TABLE Empregado DROP SEXO;
+
+--EXIBIR 
+SELECT * FROM Empregado;
+
+--ADD COLUNA
+ALTER TABLE Empregado RENAME TO Funcionario;
+
+--ALTER TABLE tabela CHANGE campo nome tipo_dado;
+    ALTER TABLE Fornecedor CHANGE status TYPE INT ativo TYPE BOOLEAN;
