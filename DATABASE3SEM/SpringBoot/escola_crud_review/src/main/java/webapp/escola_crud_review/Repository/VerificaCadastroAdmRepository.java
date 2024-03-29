@@ -1,9 +1,9 @@
 package webapp.escola_crud_review.Repository;
 
-import org.aspectj.apache.bcel.util.ClassLoaderRepository;
+import org.springframework.data.repository.CrudRepository;
 
 import webapp.escola_crud_review.Model.VerificaCadastroAdm;
 
-public class VerificaCadastroAdmRepository extends CrudRepository<VerificaCadastroAdm, String>{
+public interface VerificaCadastroAdmRepository extends CrudRepository<VerificaCadastroAdm, String>{
     VerificaCadastroAdm findByCpf(String cpf);
 }
