@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class AdministradorController {
 
-    //atributos da classe
+    // atributos da classe
     boolean acessoInternoAdm = false;
 
     @Autowired
@@ -53,9 +54,10 @@ public class AdministradorController {
     }
 
     @PostMapping("acesso-adm")
-    public ModelAndView acessoAdmLogin(@RequestParam String cpf, @RequestParam String senha) {
+    public ModelAndView acessoAdmLogin(@RequestParam String cpf, @RequestParam String senha,
+            RedirectAttributes attributes) {
 
-        ModelAndView mv = new ModelAndView("login/login-adm"); // Página interna de acesso
+        ModelAndView mv = new ModelAndView("redirect:/interna-adm"); // Página interna de acesso
 
         boolean acessoCPF = cpf.equals(ar.findByCpf(cpf).getCpf());
         boolean acessoSenha = senha.equals(ar.findByCpf(cpf).getSenha());
@@ -63,13 +65,16 @@ public class AdministradorController {
         if (acessoCPF && acessoSenha) {
             String mensagem = "Login Realizado com sucesso";
             System.out.println(mensagem);
+            acessoInternoAdm = true;
             mv.addObject("msg", mensagem);
             mv.addObject("classe", "verde");
+
         } else {
             String mensagem = "Login Não Efetuado";
             System.out.println(mensagem);
             mv.addObject("msg", mensagem);
             mv.addObject("classe", "vermelho");
+            mv.setViewName("redirect:/login-adm");
         }
 
         return mv;
@@ -77,20 +82,22 @@ public class AdministradorController {
 
     @GetMapping("/interna-adm")
     public String acessoPageInternaAdm() {
-
-        ModelAndView mv = new ModelAndView();
         String acesso = "";
+        ModelAndView mv = new ModelAndView();
         if (acessoInternoAdm) {
+            System.out.println("Acesso Permitido");
             acesso = "interna/interna-adm";
+
         } else {
-            acesso = "login/login-adm";
-            String mensagem = "Acesso não permitido - efetue o login! Big Waver";
+            String mensagem = "Acesso não Permitido - faça Login";
             System.out.println(mensagem);
             mv.addObject("msg", mensagem);
             mv.addObject("classe", "vermelho");
+            mv.setViewName("redirect:/login-adm");
         }
 
         return acesso;
+        
     }
 
 }
