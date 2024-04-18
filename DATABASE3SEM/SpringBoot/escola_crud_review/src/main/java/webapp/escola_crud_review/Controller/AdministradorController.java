@@ -85,7 +85,7 @@ public class AdministradorController {
         return mv;
     }
 
-    @GetMapping("/interna-adm")
+    @GetMapping("interna-adm")
     public ModelAndView acessoPageInternaAdm(RedirectAttributes attributes) {
         ModelAndView mv = new ModelAndView("redirect:/interna-adm");
         if (acessoInternoAdm) {
@@ -113,10 +113,24 @@ public class AdministradorController {
         return mv;
     }
 
-    @GetMapping("path")
-    public String getMethodName(@RequestParam String param) {
-        return new String();
-    }
     
 
+    // cadastro do aluno
+    // @GetMapping("cad-aluno-adm")
+    // public ModelAndView acessoCadAluno(RedirectAttributes attributes) {
+        
+    //     ModelAndView mv = new ModelAndView("redirect:/cad-aluno-adm");
+    //     if (acessoInternoAdm) {
+    //         System.out.println("Acesso Permitido");
+    //         mv.setViewName("interna/cad-aluno-adm");
+
+    //     } else {
+    //         String mensagem = "Acesso não Permitido - faça Login";
+    //         System.out.println(mensagem);
+    //         attributes.addFlashAttribute("msg", mensagem);
+    //         attributes.addFlashAttribute("classe", "vermelho");
+    //         mv.setViewName("redirect:/login-adm");
+    //     }
+    // return mv;
+    // }
 }

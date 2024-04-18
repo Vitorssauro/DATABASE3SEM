@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
+
 
 @Controller
 public class IndexController {
@@ -29,6 +31,13 @@ public class IndexController {
     @GetMapping("/cadastro-adm")
     public String acessoCadastroAdm() {
         return "cadastro/cadastro-adm.html";
+    }
+
+    
+    @GetMapping("/cad-aluno-adm")
+    public ModelAndView acessoCadAluno() {
+        ModelAndView mv = new ModelAndView("interna/cad-aluno-adm");
+        return mv;
     }
 
 }
