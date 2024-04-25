@@ -14,44 +14,48 @@
 
 <body>
     <div class="container">
-        <div th:insert="~{fragmentos/header :: header}"><!-- barra de menu -->
-            <div class="row justify-content-center">
-                <div class="col-md-6">
-                    <div class="register-container">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3>Cadastar o Aluno</h3>
-                            </div>
-                            essa bosta
-                            <div class="card-body">
-                                <form action="" method="post">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Nome" name="nome">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="RA" name="ra">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="password" class="form-control" placeholder="Senha" name="senha">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="password" class="form-control" placeholder="Confirmar Senha">
-                                    </div>
-                                    <button type="submit" class="btn btn-block btn-register">
-                                        <i class="fas fa-user-plus"></i> Cadastrar Aluno
-                                    </button>
-                                    <a href="/login-adm">
-                                        <button type="button" class="btn btn-block btn-register">
-                                            <i class="fas fa-sign-in-alt"></i> Voltar</button>
-                                    </a>
-                                </form>
-                            </div>
+        <div th:insert="~{fragmentos/header :: header}"></div>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="register-container">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Cadastro</h3>
+                        </div>
+                        <div class="card-body">
+                            <form action="cadastrar-aluno" method="post">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Nome" name="nome">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="RA" name="ra">
+                                </div>
+                                <div class="form-group">
+                                    <label for="materia">Matéria :</label>
+                                    <select class="form-control" name="materia">
+                                        <option value="Matemática">Matemática</option>
+                                        <option value="Biologia">Português</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control" placeholder="Senha" name="senha">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control" placeholder="Confirmar Senha">
+                                </div>
+                                <button type="submit" class="btn btn-block btn-register">
+                                    <i class="fas fa-user-plus"></i> Cadastrar
+                                </button>
+                                <a href="/cad-aluno">
+                                    <button type="button" class="btn btn-block btn-register">
+                                        <i class="fas fa-sign-in-alt"></i> Voltar</button>
+                                </a>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 </body>
 
 </html>

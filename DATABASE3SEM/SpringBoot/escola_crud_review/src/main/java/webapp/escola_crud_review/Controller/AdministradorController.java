@@ -25,6 +25,8 @@ public class AdministradorController {
     private VerificaCadastroAdmRepository vcar;
 
     // metodos
+
+
     @PostMapping("cadastrar-adm")
     public ModelAndView cadastrarAdmBD(Administrador adm) {
 
@@ -48,6 +50,19 @@ public class AdministradorController {
         }
 
         return mv;
+    }
+
+
+    // se admin logado acessa a interna
+    @GetMapping("login-adm")
+    public ModelAndView logadoAdmin(RedirectAttributes attributes) {
+        ModelAndView mv = new ModelAndView("login/login-adm");
+        if (acessoInternoAdm) {
+            System.out.println("Login já foi realizado");
+            mv.setViewName("interna/interna-adm");
+        }
+        return mv;
+
     }
 
     @PostMapping("acesso-adm")
@@ -116,21 +131,22 @@ public class AdministradorController {
     
 
     // cadastro do aluno
-    // @GetMapping("cad-aluno-adm")
-    // public ModelAndView acessoCadAluno(RedirectAttributes attributes) {
-        
-    //     ModelAndView mv = new ModelAndView("redirect:/cad-aluno-adm");
-    //     if (acessoInternoAdm) {
-    //         System.out.println("Acesso Permitido");
-    //         mv.setViewName("interna/cad-aluno-adm");
 
-    //     } else {
-    //         String mensagem = "Acesso não Permitido - faça Login";
-    //         System.out.println(mensagem);
-    //         attributes.addFlashAttribute("msg", mensagem);
-    //         attributes.addFlashAttribute("classe", "vermelho");
-    //         mv.setViewName("redirect:/login-adm");
-    //     }
-    // return mv;
-    // }
+    @GetMapping("cad-aluno-adm")
+    public ModelAndView acessoCadAluno(RedirectAttributes attributes) {
+        
+        ModelAndView mv = new ModelAndView("interna/cad-aluno-adm");
+        if (acessoInternoAdm) {
+            System.out.println("Acesso Permitido");
+            
+
+        } else {
+            String mensagem = "Acesso não Permitido - faça Login";
+            System.out.println(mensagem);
+            attributes.addFlashAttribute("msg", mensagem);
+            attributes.addFlashAttribute("classe", "vermelho");
+            mv.setViewName("redirect:/login-adm");
+        }
+    return mv;
+    }
 }
