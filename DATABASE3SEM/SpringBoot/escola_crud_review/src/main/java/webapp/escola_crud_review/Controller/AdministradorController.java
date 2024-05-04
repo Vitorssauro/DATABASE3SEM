@@ -58,22 +58,30 @@ public class AdministradorController {
             RedirectAttributes attributes) {
 
         ModelAndView mv = new ModelAndView("redirect:/interna-adm"); // Página interna de acesso
+        try {
+            // boolean acessoCPF = cpf.equals(ar.findByCpf(cpf).getCpf());
+            boolean acessoCPF = ar.existsById(cpf);
+            boolean acessoSenha = senha.equals(ar.findByCpf(cpf).getSenha());
 
-        boolean acessoCPF = cpf.equals(ar.findByCpf(cpf).getCpf());
-        boolean acessoSenha = senha.equals(ar.findByCpf(cpf).getSenha());
+            if (acessoCPF && acessoSenha) {
+                String mensagem = "Login Realizado com sucesso";
+                System.out.println(mensagem);
+                acessoInternoAdm = true;
+                mv.addObject("msg", mensagem);
+                mv.addObject("classe", "verde");
 
-        if (acessoCPF && acessoSenha) {
-            String mensagem = "Login Realizado com sucesso";
-            System.out.println(mensagem);
-            acessoInternoAdm = true;
-            mv.addObject("msg", mensagem);
-            mv.addObject("classe", "verde");
-
-        } else {
+            } else {
+                String mensagem = "Login Não Efetuado";
+                System.out.println(mensagem);
+                attributes.addFlashAttribute("msg", mensagem);
+                attributes.addFlashAttribute("classe", "vermelho");
+                mv.setViewName("redirect:/login-adm");
+            }
+        } catch (Exception e) {
             String mensagem = "Login Não Efetuado";
             System.out.println(mensagem);
-            mv.addObject("msg", mensagem);
-            mv.addObject("classe", "vermelho");
+            attributes.addFlashAttribute("msg", mensagem);
+            attributes.addFlashAttribute("classe", "vermelho");
             mv.setViewName("redirect:/login-adm");
         }
 
@@ -81,7 +89,7 @@ public class AdministradorController {
     }
 
     @GetMapping("/interna-adm")
-    public String acessoPageInternaAdm() {
+    public String acessoPageInternaAdm(RedirectAttributes attributes) {
         String acesso = "";
         ModelAndView mv = new ModelAndView();
         if (acessoInternoAdm) {
@@ -91,13 +99,13 @@ public class AdministradorController {
         } else {
             String mensagem = "Acesso não Permitido - faça Login";
             System.out.println(mensagem);
-            mv.addObject("msg", mensagem);
-            mv.addObject("classe", "vermelho");
+            attributes.addFlashAttribute("msg", mensagem);
+            attributes.addFlashAttribute("classe", "vermelho");
             mv.setViewName("redirect:/login-adm");
         }
 
         return acesso;
-        
+
     }
 
 }
